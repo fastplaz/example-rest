@@ -1,7 +1,9 @@
 # Simple REST API Example
 
-Source ini adalah contoh implementasi REST (API) dengan menggunakan [FastPlaz](http://www.fastplaz.com).
+Source ini adalah contoh sederhana implementasi REST (API) dengan menggunakan [FastPlaz](http://www.fastplaz.com). Tanpa disertakan *check permission* dan validasi input.
+
 Contoh ini telah dicoba di *environment* Linux dan Mac. Untuk pengguna Windows, dipersilakan menyesuaikan  khususnya untuk penamaan path/folder/directory.
+
 
 ## How To Build
 
@@ -174,6 +176,29 @@ Dan seterusnya untuk *update/modifikasi* data dan juga menghapus data.
 
 ![Command Example](docs/img/all.png)
 
+### Bonus
+
+Tak lupa disertakan juga bonus, bagaimana fleksible-nya bermain **routing** di fastplaz.
+
+Di dalam file `route.pas` akan terlihat baris code berikut:
+
+```delphi
+  initialization
+  ...
+  Route['^/([0-9_]+)/profile/$'] := TProfileModule; 
+  Route['/'] := TMainModule;  //--> Route['main'] := TMainModule;
+
+```
+
+Pada baris ketiga, konfigurasi tersebut memungkin api bisa diakses dengan format url seperti ini:
+
+```
+http://your-url-address/path/customer/2/profile/
+http://your-url-address/path/customer/123/profile/
+http://your-url-address/path/customer/8212/profile/
+```
+
+Dengan menggunakan **regex**, variasi pattern url akan sangat luas dan fleksible untuk dikonfigurasikan.
 
 ## Referensi
 
