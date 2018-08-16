@@ -196,7 +196,7 @@ end;
 
 // UPDATE CUSTOMER - Partial Data
 // Curl example
-//   curl -X PATCH "http://localhost/api-test/customer/?id=1" --data "name=your name"
+//   curl -X PATCH "http://localhost/api-test/customer/?id=1" --data "name=my name"
 procedure TMainModule.Patch;
 var
   json: TJSONUtil;
