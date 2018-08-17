@@ -2,12 +2,12 @@
 
 Source ini adalah contoh sederhana implementasi REST (API) dengan menggunakan [FastPlaz](http://www.fastplaz.com). Tanpa disertakan *check permission* dan validasi input.
 
-Contoh ini telah dicoba di *environment* Linux dan Mac. Untuk pengguna Windows, dipersilakan menyesuaikan  khususnya untuk penamaan path/folder/directory.
+Contoh ini telah dicoba di *environment* Linux dan Mac. Untuk pengguna Windows, dipersilakan menyesuaikan khususnya untuk penamaan path/folder/directory.
 
 
 ## How To Build
 
-### Requirements
+### Requirements / Prerequisite
 
 - [FastPlaz_runtime](http://www.fastplaz.com/)
 
@@ -39,9 +39,12 @@ Ada beberapa cara untuk bisa meng-compile code ini, diantaranya:
 1. Melalui IDE Lazarus
 2. Melalui command-line (fpc)
 
+**Pastikan file-file requirements/prerequisite di atas sudah tersedia.**
+Tanpa ketersediaan file-file tersebut akan menghasilkan kegagalan dalam proses kompilasi.
+
 **Compile dari IDE Lazarus**
 
-Jika menggunakan Lazarus, buka file `customer.lpi` dan compile file tersebut.
+Jika menggunakan Lazarus, buka file `source/customer/customer.lpi` dan compile file tersebut.
 
 Akan terbentuk file binary di `public_html/customer.bin`
 
@@ -172,7 +175,30 @@ dan hasilnya:
 Jika menggunakan tools gui api-tester, kurang lebih akan seperti ini:
 ![get - View Data](docs/img/get.png)
 
-Dan seterusnya untuk *update/modifikasi* data dan juga menghapus data.
+### Menampilkan Data Detail (customer profile)
+
+```bash
+curl -X GET "http://localhost/api-test/customer/1/profile/"
+```
+dan hasilnya
+
+```
+{
+  "code": 200,
+  "data": {
+    "id": "2",
+    "name": "YOUR NAME",
+    "description": "this is description",
+    "profile": {
+      "biography": "this is example user profile",
+      "address": "example address",
+      "city": "example city"
+    }
+  }
+}
+```
+
+Dan seterusnya untuk *update/modifikasi* data dan juga untuk menghapus data. Detil perintahnya bisa dilihat dari gambar ilustrasi berikut:
 
 ![Command Example](docs/img/all.png)
 
@@ -190,7 +216,7 @@ Di dalam file `route.pas` akan terlihat baris code berikut:
 
 ```
 
-Pada baris ketiga, konfigurasi tersebut memungkin api bisa diakses dengan format url seperti ini:
+Pada baris ketiga, konfigurasi tersebut memungkinkan API bisa diakses dengan format url seperti ini:
 
 ```
 http://your-url-address/path/customer/2/profile/

@@ -84,5 +84,6 @@ public_html/ztemp/sessions/*
 *.dll
 *.exe
 *.bin
+*.bin.cpgz
 backup.bat
 backup.sh
