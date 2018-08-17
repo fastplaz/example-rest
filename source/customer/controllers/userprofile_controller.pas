@@ -19,7 +19,7 @@ type
 
 implementation
 
-uses common, json_lib;
+uses common, json_lib, customer_model;
 
 constructor TProfileModule.CreateNew(AOwner: TComponent; CreateMode: integer);
 begin
@@ -39,9 +39,25 @@ var
   json: TJSONUtil;
 begin
   json := TJSONUtil.Create;
-  json['code'] := Int16(200);
-  json['data/id'] := _GET['$1']; // Get First Parameter in url
-  json['data/message'] := 'this is example user profile';
+  json['code'] := Int16(404);
+
+  DataBaseInit();
+  with TCustomerModel.Create() do
+  begin
+    if Find( s2i(_GET['$1'])) then
+    begin
+      json['code'] := Int16(200);
+      json['data/id'] := _GET['$1']; // Get First Parameter in url
+      json['data/name'] := Value['name'];
+      json['data/description'] := Value['description'];
+      json['data/profile/biography'] := 'this is example user profile';
+      json['data/profile/address'] := 'example address';
+      json['data/profile/city'] := 'example city';
+    end;
+
+    Free;
+  end;
+
   Response.ContentType := 'application/json';
   Response.Content := json.AsJSON;
   json.Free;
