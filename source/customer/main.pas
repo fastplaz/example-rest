@@ -6,7 +6,8 @@ interface
 
 uses
   customer_model,
-  Classes, SysUtils, fpcgi, fpjson, HTTPDefs, fastplaz_handler, database_lib;
+  Classes, SysUtils, fpcgi, fpjson, HTTPDefs, fastplaz_handler, database_lib,
+  string_helpers, dateutils, datetime_helpers;
 
 type
 
@@ -16,6 +17,7 @@ type
   private
     Customer: TCustomerModel;
     procedure BeforeRequestHandler(Sender: TObject; ARequest: TRequest);
+    function getAllData: string;
   public
     constructor CreateNew(AOwner: TComponent; CreateMode: integer); override;
     destructor Destroy; override;
@@ -53,22 +55,59 @@ begin
   Response.ContentType := 'application/json';
 end;
 
+function TMainModule.getAllData: string;
+var
+  json: TJSONUtil;
+  jArray: TJSONArray;
+  iLimit, iOffset: integer;
+begin
+  json := TJSONUtil.Create;
+  json['code'] := Int16(404);
+  DataBaseInit();
+
+  Customer := TCustomerModel.Create();
+  iLimit := s2i(_GET['limit']);
+  iOffset := s2i(_GET['offset']);
+  if Customer.Select('cid as id,name,description').Limit(iLimit, iOffset).Open() then
+  begin
+    jArray := TJSONArray.Create;
+    DataToJSON(Customer.Data, jArray, False);
+
+    json['code'] := Int16(200);
+    json['count'] := jArray.Count;
+    json.ValueArray['data'] := jArray;
+    json['timeUsage'] := TimeUsage;
+  end;
+
+  Result := json.AsJSONFormated;  // json formated, easy to see json string
+
+  Customer.Free;
+  json.Free;
+end;
+
 // GET Method Handler
 // READ CUSTOMER INFORMATION
 // CURL example:
-//   curl -X GET "http://localhost/api-test/customer/?id=1"
+//   Get All Data
+//     curl -X GET "http://localhost/api-test/customer/"
+//   Get Specific Data
+//     curl -X GET "http://localhost/api-test/customer/?id=1"
 procedure TMainModule.Get;
 var
   json: TJSONUtil;
+  s: string;
 begin
   json := TJSONUtil.Create;
-  json['code'] := 204;
+  json['code'] := Int16(404);
+
+  s := _GET['$1']; // <<-- first parameter in routing: Route['^/([0-9_]+)'] := TMainModule;
+  if ((not s.isEmpty) and (s.IsNumeric)) then
+    _GET['id'] := s;  // force to parameter 'id'
 
   //---
   if _GET['id'] = '' then
   begin
-    json['message'] := MSG_CONTENT_NOTFOUND;
-    Response.Content := json.AsJSON;
+    Response.Content := getAllData;
     Exit;
   end;
 
