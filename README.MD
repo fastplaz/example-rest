@@ -258,6 +258,29 @@ http://your-url-address/path/customer/8212/profile/
 
 Dengan menggunakan **regex**, variasi pattern url akan sangat luas dan fleksible untuk dikonfigurasikan.
 
+## Automation Test
+
+Membuat API sudah seharusnya dilengkapi juga dengan tools untuk *automation-test-nya*. 
+
+Tools Automation Test tersedia di folder `test-automation`, menggunakan nodejs. Pastikan di komputer sudah tersedia NPM atau YARN untuk menjalankan tools ini.
+
+Prepare automation test
+
+```bash
+cd test-automation/
+yarn
+```
+
+Menjalankan automation test:
+
+```bash
+yarn test
+```
+
+hasilnya kurang lebih akan seperti ini:
+![Automation Test](docs/img/yarn-test.png)
+
+
 ## Referensi
 
 
