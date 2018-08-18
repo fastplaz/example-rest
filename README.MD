@@ -139,7 +139,7 @@ Pengujian tentunya bisa dilakukan dengan banyak cara dan banyak media/tools.
 API dideploy dengan End-point di `http://localhost/api-test/customer/`
 
 
-### Menambah Data
+### POST /customer
 
 Proses penambahan data dilakukan melalui method POST.
 Jika anda menggunakan BASH Console, dari *command-line* bisa menjalankan perintah berikut:
@@ -159,12 +159,42 @@ hasilnya kurang lebih akan seperti ini:
 Jika menggunakan tools api tester, kurang lebih hasilnya akan seperti ini:
 ![post - Add Data](docs/img/post.png)
 
-### Menampilkan Data
+### GET /customer/
 
-Bisa dicoba dengan cara berikut:
+Menampilkan seluruh data. Parameter yang tersedia:
+
+| Variabel | Type | Fungsi |
+|---|---|---|
+| limit | integer| ... |
+| offiset | integer | ...|
+
+Variasi yang tersedia untuk menampilkan keseluruhan data:
 
 ```bash
-curl -X GET "http://localhost/api-test/customer/?id=1"
+# All Data
+curl -X GET "http://localhost/api-test/customer/"
+
+# with Limit = 10
+curl -X GET "http://localhost/api-test/customer/?limit=10"
+
+# Limit = 20 and from Offset = 30
+curl -X GET "http://localhost/api-test/customer/?limit=20&offset=30"
+
+
+```
+
+**Contoh hasilnya:**
+![get - View Data](docs/img/all-data.png)
+
+
+### GET /customer/{id}/
+
+Uri ini bisa juga diakses melalui url: `/customer/?id={id}`
+
+Untuk menampilkan data, bisa dicoba dengan cara berikut:
+
+```bash
+curl -X GET "http://localhost/api-test/customer/1/"
 ```
 dan hasilnya:
 
@@ -175,7 +205,9 @@ dan hasilnya:
 Jika menggunakan tools gui api-tester, kurang lebih akan seperti ini:
 ![get - View Data](docs/img/get.png)
 
-### Menampilkan Data Detail (customer profile)
+### GET /customer/{id}/profile
+
+Menampilkan Data Detail (customer profile)
 
 ```bash
 curl -X GET "http://localhost/api-test/customer/1/profile/"
