@@ -161,12 +161,12 @@ Jika menggunakan tools api tester, kurang lebih hasilnya akan seperti ini:
 
 ### GET /customer/
 
-Menampilkan seluruh data. Parameter yang tersedia:
+Menampilkan seluruh data *customer*. Parameter yang tersedia:
 
-| Variabel | Type | Fungsi |
+| Variabel | Type | Keterangan |
 |---|---|---|
-| limit | integer| ... |
-| offiset | integer | ...|
+| limit | integer| Jumlah data yang akan ditampilkan, default akan menampilkan seluruh data. |
+| offiset | integer | index offset data yang akan ditampilkan. |
 
 Variasi yang tersedia untuk menampilkan keseluruhan data:
 
