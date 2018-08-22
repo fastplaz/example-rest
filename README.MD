@@ -89,6 +89,7 @@ Modifikasi konfigurasi akses ke database dari file `public_html/config/config.js
       "username" : "your_username",
       "password" : "your_password",
       "database_name" : "example",
+      "charset" : "",
       "prefix" : "",
       "library" : ""
     }
@@ -152,7 +153,7 @@ hasilnya kurang lebih akan seperti ini:
 
 ```bash
 ~/course/REST$ curl -X POST "http://localhost/api-test/customer/" --data "name=your name&description=this is description"
-{ "code" : 200, "data" : { "customer_id" : 4 }, "timeUsage" : 32 }
+{ "code" : 200, "response" : { "customer_id" : 4 }, "timeUsage" : 32 }
 ~/course/REST$ 
 ```
 
@@ -194,12 +195,12 @@ Uri ini bisa juga diakses melalui url: `/customer/?id={id}`
 Untuk menampilkan data, bisa dicoba dengan cara berikut:
 
 ```bash
-curl -X GET "http://localhost/api-test/customer/1/"
+curl -X GET "http://localhost/api-test/customer/2/"
 ```
 dan hasilnya:
 
 ```bash
-{ "code" : 200, "data" : { "id" : 1, "name" : "YOUR NAME", "description" : "this is description" }, "timeUsage" : 16 }
+{ "code" : 200, "response" : { "data" : { "id" : 2, "name" : "YOUR NAME", "description" : "this is description" } }, "timeUsage" : 18 }
 ```
 
 Jika menggunakan tools gui api-tester, kurang lebih akan seperti ini:
@@ -216,15 +217,17 @@ dan hasilnya
 
 ```
 {
-  "code": 200,
-  "data": {
-    "id": "2",
-    "name": "YOUR NAME",
-    "description": "this is description",
-    "profile": {
-      "biography": "this is example user profile",
-      "address": "example address",
-      "city": "example city"
+  "code" : 200,
+  "response" : {
+    "data" : {
+      "id" : "2",
+      "name" : "YOUR NAME",
+      "description" : "this is description",
+      "profile" : {
+        "biography" : "this is example user profile",
+        "address" : "example address",
+        "city" : "example city"
+      }
     }
   }
 }
