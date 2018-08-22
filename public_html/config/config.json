@@ -24,6 +24,7 @@
       "username" : "root",
       "password" : "root",
       "database_name" : "example",
+      "charset" : "utf8",
       "prefix" : "",
       "library" : ""
     }

@@ -5,7 +5,7 @@ program customer;
 uses
   {$IFNDEF Windows}cthreads,{$ENDIF}
   fpcgi, sysutils, fastplaz_handler, common, main, routes, common_lib,
-  customer_model, userprofile_controller;
+  customer_model, userprofile_controller, customers_controller;
 
 begin
   Application.Title:='Customer';

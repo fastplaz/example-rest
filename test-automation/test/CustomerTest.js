@@ -4,11 +4,10 @@ let chai = require('chai');
 let should = chai.should();
 let expect = chai.expect;
 let chaiHttp = require('chai-http');
+let randomstring = require("randomstring");
 chai.use(chaiHttp);
 
 let customerID = 0;
-let customerName = 'my name';
-let customerDescription = 'this is description.';
 
 let Config = require('./Config');
 environment = Config['environment'];
@@ -19,17 +18,17 @@ let BaseURL = config.baseURL;
 describe('Customer: API Testing', () => {
 
   let customerDetails = {
-    'name': customerName,
-    'description': customerDescription
+    'name': randomstring.generate(10),
+    'description': randomstring.generate({ length: 50, charset: 'alphabetic' })
   };
 
-  it('it should success to create new customer', (done) => {
+  it('it should success to create new customer: ' + customerDetails.name, (done) => {
     chai.request(BaseURL)
       .post('/')
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .send(customerDetails)
       .end((err, res) => {
-        customerID = res.body.data.customer_id;
+        customerID = res.body.response.customer_id;
         done();
       });
   });
@@ -39,13 +38,14 @@ describe('Customer: API Testing', () => {
       .get('/?id=' + customerID)
       .end((err, res) => {
         expect(res.body.code).to.equal(200);
-        expect(res.body.data.name).to.equal(customerName.toUpperCase());
+        expect(res.body.response.data.name).to.equal(customerDetails.name.toUpperCase());
         done();
       });
   });
 
-  it('it should success to update PARTIAL customer data', (done) => {
-    customerDetails.name = 'replace';
+  customerDetails.name = randomstring.generate(10);
+  it('it should success to update PARTIAL customer data: ' + customerDetails.name, (done) => {
+    customerDetails.name = randomstring.generate(10);
     customerDetails.description = '';
     chai.request(BaseURL)
       .patch('/?id=' + customerID)
@@ -60,7 +60,7 @@ describe('Customer: API Testing', () => {
       .get('/?id=' + customerID)
       .end((err, res) => {
         expect(res.body.code).to.equal(200);
-        expect(res.body.data.name).to.equal('REPLACE');
+        expect(res.body.response.data.name).to.equal(customerDetails.name.toUpperCase());
         done();
       });
   });
@@ -73,9 +73,9 @@ describe('Customer: API Testing', () => {
         res.should.be.json;
         it('wow');
         expect(res.body.code).to.equal(200);
-        res.body.should.have.property('count');
-        res.body.should.have.property('data');
-        res.body.data.should.be.an('array');
+        res.body.response.should.have.property('count');
+        res.body.response.should.have.property('data');
+        res.body.response.data.should.be.an('array');
         done();
       });
     //done();
