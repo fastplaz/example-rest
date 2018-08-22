@@ -7,7 +7,7 @@ let Config = {
     baseURL: 'https://your-url'
   },
   development: {
-    baseURL: 'localhost/api-test/customer'
+    baseURL: 'http://localhost/api-test/customer'
   }
 }
 

@@ -47,19 +47,19 @@ begin
     if Find( s2i(_GET['$1'])) then
     begin
       json['code'] := Int16(200);
-      json['data/id'] := _GET['$1']; // Get First Parameter in url
-      json['data/name'] := Value['name'];
-      json['data/description'] := Value['description'];
-      json['data/profile/biography'] := 'this is example user profile';
-      json['data/profile/address'] := 'example address';
-      json['data/profile/city'] := 'example city';
+      json['response/data/id'] := _GET['$1']; // Get First Parameter in url
+      json['response/data/name'] := Value['name'];
+      json['response/data/description'] := Value['description'];
+      json['response/data/profile/biography'] := 'this is example user profile';
+      json['response/data/profile/address'] := 'example address';
+      json['response/data/profile/city'] := 'example city';
     end;
 
     Free;
   end;
 
   Response.ContentType := 'application/json';
-  Response.Content := json.AsJSON;
+  Response.Content := json.AsJSONFormated;
   json.Free;
 end;
 
