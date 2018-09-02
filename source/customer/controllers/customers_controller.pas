@@ -76,6 +76,8 @@ begin
     json['response/count'] := jArray.Count;
     json.ValueArray['response/data'] := jArray;
     json['timeUsage'] := TimeUsage;
+    if Config['systems/debug'] then
+      json['log/sql'] :=  Customer.Data.SQL.Text;  // remove log in production
   end;
 
   Result := json.AsJSONFormated;  // json formated, easy to see json string
@@ -129,6 +131,8 @@ begin
   json['response/data/name'] := Customer['name'];
   json['response/data/description'] := Customer['description'];
   json['timeUsage'] := TimeUsage;
+  if Config['systems/debug'] then
+    json['log/sql'] :=  Customer.Data.SQL.Text;  // remove log in production
   Response.Content := json.AsJSON;
 
   Customer.Free;
