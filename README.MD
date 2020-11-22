@@ -4,12 +4,13 @@ Source ini adalah contoh sederhana implementasi REST (API) dengan menggunakan [F
 
 Contoh ini telah dicoba di *environment* Linux dan Mac. Untuk pengguna Windows, dipersilakan menyesuaikan khususnya untuk penamaan path/folder/directory.
 
+> Note: Matikan mode debug (Log) jika untuk _server production_.
 
 ## How To Build
 
 ### Requirements / Prerequisite
 
-- [FastPlaz_runtime](http://www.fastplaz.com/)
+- [FastPlaz_runtime](https://www.fastplaz.com/)
 
 
 ### Source
@@ -284,9 +285,13 @@ hasilnya kurang lebih akan seperti ini:
 ![Automation Test](docs/img/yarn-test.png)
 
 
+
 ## Referensi
 
 
 - [FastPlaz - Pascal Web Framework](http://www.fastplaz.com)
+- [FastPlaz Documentation](https://fastplaz.github.io)
 - [Understanding REST](https://github.com/fastplaz/fastplaz/blob/development/REST.md)
 
+> Note: Matikan mode debug (Log) jika untuk _server production_.
+> 
