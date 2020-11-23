@@ -1,0 +1,20 @@
+
+
+### Tampilkan semua customer
+
+GET http://course.fastplaz.test/customer/
+
+### Tampilkan customer
+
+GET http://course.fastplaz.test/customer/2/
+
+### Tampilkan profil customer
+
+GET http://course.fastplaz.test/customer/2/profile/
+
+### Tambah data
+GET http://course.fastplaz.test/customer/
+Content-Type: application/x-www-form-urlencoded
+
+name=Your Name
+description=Your Description
