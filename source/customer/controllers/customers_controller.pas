@@ -101,9 +101,13 @@ begin
   json := TJSONUtil.Create;
   json['code'] := Int16(404);
 
-  s := _GET['$1']; // <<-- first parameter in routing: Route['^/([0-9_]+)'] := TMainModule;
-  if ((not s.isEmpty) and (s.IsNumeric)) then
-    _GET['id'] := s;  // force to parameter 'id'
+  // contoh dengan index
+  //s := _GET['$1']; // <<-- first parameter in routing: Route['^/([0-9_]+)'] := TMainModule;
+  //if ((not s.isEmpty) and (s.IsNumeric)) then
+  //  _GET['id'] := s;  // force to parameter 'id'
+
+  // contoh dengan group name (id)
+  s := _GET['id']; // <<-- first parameter in routing: Route['^/(?P<id>[0-9_]+)'] := TMainModule;
 
   //---
   if _GET['id'] = '' then
@@ -133,7 +137,9 @@ begin
   json['timeUsage'] := TimeUsage;
   if Config['systems/debug'] then
     json['log/sql'] :=  Customer.SQL.Text;  // remove log in production
-  Response.Content := json.AsJSON;
+
+  //Response.Content := json.AsJSON;
+  Response.Content := json.AsJSONFormated;
 
   Customer.Free;
   json.Free;
